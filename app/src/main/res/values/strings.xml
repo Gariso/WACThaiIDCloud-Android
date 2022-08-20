@@ -1,0 +1,84 @@
+<resources>
+    <string name="app_name">WAC ThaiID Cloud</string>
+
+<!--    <string name="URL">http://10.0.0.205:</string>-->
+<!--    <string name="PORT">4005/</string>-->
+<!--    <string name="URL">https://api.smartcard.wacappcloud.com/</string>-->
+<!--    <string name="PORT" />-->
+    <string name="URL">http://Dipchip.utrade.co.th:</string>
+    <string name="PORT">4004/</string>
+    <string name="API_Login">login</string>
+    <string name="API_Token">token</string>
+    <string name="API_CardData">smartData</string>
+
+    <string name="ble_not_supported">BLE is not supported.</string>
+    <string name="title_devices">BLE Device Scan</string>
+    <string name="error_bluetooth_not_supported">Bluetooth not supported.</string>
+    <string name="unknown_device">Unknown device</string>
+    <string name="about">About WAC ThaiID Cloud</string>
+    <string name="version">Version</string>
+    <string name="unknown_version">Unknown version</string>
+    <string name="ok">OK</string>
+    <string name="header_activate_product_license">Activate Product License</string>
+    <string name="hint_activate_product">ป้อน License key ของคุณที่นี่</string>
+    <string name="ActivateKey">เปิดใช้งาน</string>
+    <string name="hint_activate_prodct_2">ไม่มี license key? กรุณาติดต่อผู้ขาย</string>
+    <string name="hint_get_key1">ในการเปิดใช้งานแอปพลิเคชัน ให้คลิกที่ปุ่ม \"รับรหัสอุปกรณ์\" และคัดลอกรหัสอุปกรณ์</string>
+    <string name="hint_get_key2">ติดต่อผู้ขายและส่งรหัสอุปกรณ์เพื่อเปิดใช้งานรหัสใบอนุญาต</string>
+    <string name="hint_get_key3">คัดลอก License key ที่ได้รับจากผู้ขายและกรอกลงในช่องว่าง คลิก \"เปิดใช้งาน\" เพื่อดำเนินการต่อ</string>
+    <string name="GetDvID">รับรหัสอุปกรณ์</string>
+    <string name="hint_VID">Enter VID here</string>
+    <string name="key">key</string>
+    <string name="DeviceID">Device ID</string>
+
+
+    //Preference
+    <string name="PrefsSetting">EasyQueueSettingsPref</string>
+    <string name="CopyFileSetting">Save copy file SettingsPref</string>
+    <string name="ExcelFileSetting">Save excel file SettingsPref</string>
+    <string name="key_license">ActivateLicense</string>
+
+    <!-- Menu items -->
+    <string name="menu_scan">Scan</string>
+    <string name="menu_stop">Stop</string>
+    <string name="menu_usb">BLE Device USB</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Connection status -->
+    <string name="connect">Connect</string>
+    <string name="connected">Connected</string>
+    <string name="connecting">Connecting</string>
+    <string name="connect_fail">Fail to connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="disconnecting">Disconnecting</string>
+    <string name="disconnect_fail">Fail to disconnect</string>
+
+    <string name="reading">กำลังอ่านบัตร</string>
+    <string name="do_not_eject">กรุณาอย่านำบัตรออกจนกว่าจะอ่านเสร็จ</string>
+
+
+    <!-- Card parameter -->
+    <string name="CID">เลขประจำตัวประชาชน</string>
+    <string name="name_th">ชื่อ-สกุล</string>
+    <string name="DOB">วันเกิด</string>
+    <string name="Address">ที่อยู่</string>
+    <string name="name_en">Fisrtname-Lastname</string>
+    <string name="gender">เพศ</string>
+    <string name="Request_number">หมายเลข บัตร/คำร้อง</string>
+    <string name="Issueplace">สถานที่ออกบัตร</string>
+    <string name="Issuecode">รหัสผู้ออกบัตร</string>
+    <string name="Issue">วัน เดือน ปี ที่ออกบัตร</string>
+    <string name="Expire">วัน เดือน ปี ที่บัตรหมดอายุ</string>
+    <string name="CardTypecode">รหัสประเภทบัตร</string>
+    <string name="imgcode">เลขรหัสกำกับใต้รูป</string>
+    <string name="Officer_license">ลายเซ็นนายทะเบียน บัตรประจำตัวประชาชน</string>
+    <string name="VersionCard">Version</string>
+    <string name="LaserID">Laser ID</string>
+    <string name="ChipCard">Chip card ID</string>
+    <string name="login">Log in</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_out">Log out</string>
+    <string name="some_error">เกิดข้อผิดพลาด</string>
+</resources>

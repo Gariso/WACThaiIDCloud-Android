@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+     Copyright (C) 2014 Advanced Card Systems Ltd. All Rights Reserved.
+
+     This software is the confidential and proprietary information of Advanced
+     Card Systems Ltd. ("Confidential Information").  You shall not disclose such
+     Confidential Information and shall use it only in accordance with the terms
+     of the license agreement you entered into with ACS.
+
+-->
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/cardpicture"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icons8_contacts_108px_1" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@id/cardpicture"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="@color/purple_active"
+        app:tabIndicatorHeight="5dp"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="@color/purple_active" />
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btnCommand"
+        android:layout_below="@id/tabs"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:layout_margin="@dimen/margin_right"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btnCommand"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="16dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight=".5"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/read_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/purple_btn"
+                android:text="Read"
+                android:textColor="@color/White_White" />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/progressbar"
+                android:elevation="8dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@android:color/holo_orange_dark" />
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+</RelativeLayout>
+

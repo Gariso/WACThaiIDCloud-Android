@@ -1,0 +1,3 @@
+rootProject.name = "WAC ThaiID Cloud"
+include ':app'
+include ':acsbt'

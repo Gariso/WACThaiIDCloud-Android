@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/textlogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/login"
+        android:textColor="@color/purple_inactive"
+        android:textSize="@dimen/textsize_XXL"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/username_TextField"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_centerVertical="true"
+        android:id="@+id/username_TextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_marginStart="@dimen/header_view_end_margin_left"
+        android:layout_marginEnd="@dimen/header_view_end_margin_left"
+        android:hint="@string/username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionNext"
+            android:text="123"
+            android:inputType="textNoSuggestions" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/password_TextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_below="@id/username_TextField"
+        android:layout_marginStart="@dimen/header_view_end_margin_left"
+        android:layout_marginTop="@dimen/margin_top"
+        android:layout_marginEnd="@dimen/header_view_end_margin_left"
+        app:layout_constraintTop_toBottomOf="@id/username_TextField"
+        app:endIconMode="password_toggle"
+        android:hint="@string/password"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:text="_z(h)Q^'WG"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/login_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password_TextField"
+        android:layout_marginTop="56dp"
+        android:layout_marginStart="@dimen/header_view_end_margin_left"
+        android:layout_marginEnd="@dimen/header_view_end_margin_left"
+        android:background="@drawable/purple_btn"
+        android:padding="16dp"
+        android:text="@string/login"
+        android:textAlignment="center"
+        android:textColor="@color/White_White"
+        app:layout_constraintTop_toBottomOf="@+id/password_TextField"
+        tools:layout_editor_absoluteX="40dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/setting_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/White_White"
+        android:insetLeft="0dp"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:minWidth="0dp"
+        android:onClick="onClick"
+        android:text=""
+        app:backgroundTint="@color/White_White"
+        app:icon="@drawable/ic_setting"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconTint="@color/Gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

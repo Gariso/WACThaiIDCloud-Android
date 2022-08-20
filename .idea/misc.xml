@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="../../../../layout/custom_preview.xml" value="0.2703804347826087" />
+        <entry key="../../Library/Android/sdk/platforms/android-30/data/res/layout/simple_spinner_item.xml" value="0.25" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/drawable-v24/progressbar.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/drawable/background_item.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/drawable/border_background.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/drawable/ic_launcher_background.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/drawable/progressbar.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/drawable/purple_btn.xml" value="0.23802083333333332" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/layout/actionbar_indeterminate_progress.xml" value="0.32916666666666666" />
+        <entry key="..\:/Users/Public/AndroidStudioProjects/AndroidStudioProjects/WACThaiIDCloud/app/src/main/res/layout/activity_login.xml" value="0.32916666666666666" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_setting.xml" value="0.3285" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_user.xml" value="0.3285" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2595" />
+        <entry key="app/src/main/res/drawable/background_item.xml" value="0.2595" />
+        <entry key="app/src/main/res/drawable/border_background.xml" value="0.2595" />
+        <entry key="app/src/main/res/drawable/ic_id_card_svgrepo_com.xml" value="0.2585" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2595" />
+        <entry key="app/src/main/res/layout/actionbar_indeterminate_progress.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/layout/activity_login.xml" value="0.6099656357388317" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/layout/activity_reader.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/layout/activity_usb_reader.xml" value="0.25416666666666665" />
+        <entry key="app/src/main/res/layout/dialog_setting.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_view_pager.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_view_pager2.xml" value="0.3591485507246377" />
+        <entry key="app/src/main/res/layout/fragment_view_pager3.xml" value="0.3591485507246377" />
+        <entry key="app/src/main/res/menu/main.xml" value="0.37604166666666666" />
+        <entry key="app/src/main/res/menu/reader.xml" value="0.19479166666666667" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3285" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3285" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
