@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: __wrapped_aars__::acsbt:unspecified@aar">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/acsbt/build/.transforms/aa76a7ed435a921950e669e0696192f3/transformed/jetified-acsbt-1.0.1/jars/classes.jar!/" />
-      <root url="file://$PROJECT_DIR$/acsbt/build/.transforms/aa76a7ed435a921950e669e0696192f3/transformed/jetified-acsbt-1.0.1/res" />
-      <root url="file://$PROJECT_DIR$/acsbt/build/.transforms/aa76a7ed435a921950e669e0696192f3/transformed/jetified-acsbt-1.0.1/AndroidManifest.xml" />
+      <root url="file://$PROJECT_DIR$/acsbt/build/.transforms/d73aa544661cacad0e1d64391296aff7/transformed/jetified-acsbt-1.0.1/AndroidManifest.xml" />
+      <root url="jar://$PROJECT_DIR$/acsbt/build/.transforms/d73aa544661cacad0e1d64391296aff7/transformed/jetified-acsbt-1.0.1/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/acsbt/build/.transforms/d73aa544661cacad0e1d64391296aff7/transformed/jetified-acsbt-1.0.1/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

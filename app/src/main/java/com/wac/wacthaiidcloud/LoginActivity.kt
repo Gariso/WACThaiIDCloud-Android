@@ -62,7 +62,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         supportActionBar!!.hide()
 
         initListener()
-
         val id: String = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
         println("device_id: $id")
         println("getMobileIP: ${getIpv4HostAddress()}")
@@ -172,7 +171,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
-
         retrofit.create(API::class.java)
             .postLogin(body, apiname)
             .subscribeOn(Schedulers.io())
