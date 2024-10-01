@@ -10,14 +10,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.wac.wac_bt_thaiid.view.SharedViewModel
 import com.wac.wacthaiidcloud.R
 import com.wac.wacthaiidcloud.databinding.FragmentViewPager3Binding
-import eu.davidea.flexibleadapter.FlexibleAdapter
+//import eu.davidea.flexibleadapter.FlexibleAdapter
 
 /**
  * A placeholder fragment containing a simple view.
  */
 class FragmentViewPager3 : Fragment() {
     private var mSection = 0
-    private val mAdapter: FlexibleAdapter<*>? = null
+//    private val mAdapter: FlexibleAdapter<*>? = null
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var binding: FragmentViewPager3Binding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,17 +54,17 @@ class FragmentViewPager3 : Fragment() {
         })
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mAdapter?.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        if (savedInstanceState != null && mAdapter != null) {
-            mAdapter.onRestoreInstanceState(savedInstanceState)
-        }
-    }
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        mAdapter?.onSaveInstanceState(outState)
+//    }
+//
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//        if (savedInstanceState != null && mAdapter != null) {
+//            mAdapter.onRestoreInstanceState(savedInstanceState)
+//        }
+//    }
 
     companion object {
         /**

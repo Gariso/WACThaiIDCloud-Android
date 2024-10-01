@@ -19,6 +19,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -35,7 +36,6 @@ import com.auth0.android.jwt.JWT
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.tapadoo.alerter.Alerter
 import com.wac.wac_bt_thaiid.view.FragmentViewPager1
 import com.wac.wac_bt_thaiid.view.SharedViewModel
 import com.wac.wacthaiidcloud.Retrofit.API
@@ -737,11 +737,18 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
 
 //                    sendICCPowerOff()
                 } else if (iccStatus == STATUS_NOT_INSERT) {
-                    Alerter.create(this)
-                        .setTitle("Alert")
-                        .setText(STATUS_NOT_INSERT)
-                        .setBackgroundColorRes(R.color.Red_Crimson) // or setBackgroundColorInt(Color.CYAN)
-                        .show()
+                    val alertDialog = AlertDialog.Builder(this)
+//                    Alerter.create(this)
+//                        .setTitle("Alert")
+//                        .setText(STATUS_NOT_INSERT)
+//                        .setBackgroundColorRes(R.color.Red_Crimson) // or setBackgroundColorInt(Color.CYAN)
+//                        .show()
+                    alertDialog.apply {
+                        setTitle("Alert")
+                        setMessage(STATUS_NOT_INSERT)
+                        setPositiveButton("okay.") { _: DialogInterface?, _: Int ->
+                        }
+                    }.create().show()
                 }
             }
         }
@@ -1209,11 +1216,13 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                 override fun onNext(userResponse: Upload.Response) {
                     Log.i(TAG, "Request data " + Gson().toJson(userResponse))
                     successDialog(dialog!!, userResponse.message)
-                    Alerter.create(this@ReaderActivity)
-                    .setTitle("Success")
-                    .setText("Upload complete")
-                    .setBackgroundColorRes(R.color.Green_LimeGreen) // or setBackgroundColorInt(Color.CYAN)
-                    .show()
+                    val alertDialog = AlertDialog.Builder(this@ReaderActivity)
+                    alertDialog.apply {
+                        setTitle("Success")
+                        setMessage("Upload complete")
+                        setPositiveButton("okay.") { _: DialogInterface?, _: Int ->
+                        }
+                    }.create().show()
                 }
 
                 override fun onError(e: Throwable) {

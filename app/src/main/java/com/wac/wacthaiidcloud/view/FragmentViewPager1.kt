@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.wac.wacthaiidcloud.R
 import com.wac.wacthaiidcloud.databinding.FragmentViewPagerBinding
-import eu.davidea.flexibleadapter.FlexibleAdapter
+//import eu.davidea.flexibleadapter.FlexibleAdapter
 
 /**
  * A placeholder fragment containing a simple view.
@@ -19,7 +19,7 @@ import eu.davidea.flexibleadapter.FlexibleAdapter
 class FragmentViewPager1 : Fragment() {
     private var mSection = 0
     private var name = ""
-    private val mAdapter: FlexibleAdapter<*>? = null
+//    private val mAdapter: FlexibleAdapter<*>? = null
     private var nameth: TextView? = null
     private lateinit var sharedViewModel: SharedViewModel
     private lateinit var binding: FragmentViewPagerBinding
@@ -54,29 +54,31 @@ class FragmentViewPager1 : Fragment() {
         sharedViewModel = activity?.run {
             ViewModelProviders.of(this)[SharedViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
-        sharedViewModel.nativeCardInfo.observe(viewLifecycleOwner,{
+        sharedViewModel.nativeCardInfo.observe(viewLifecycleOwner) {
             binding.txtCID.text = it.cardNumber
-            binding.txtFullnameTH.text = "${it.thaiTitle} ${it.thaiFirstName} ${it.thaiMiddleName} ${it.thaiLastName}".trim()
-            binding.txtFullnameEN.text = "${it.engTitle} ${it.engFirstName} ${it.engMiddleName} ${it.engLastName}"
+            binding.txtFullnameTH.text =
+                "${it.thaiTitle} ${it.thaiFirstName} ${it.thaiMiddleName} ${it.thaiLastName}".trim()
+            binding.txtFullnameEN.text =
+                "${it.engTitle} ${it.engFirstName} ${it.engMiddleName} ${it.engLastName}"
             binding.txtDOB.text = it.dateOfBirth
             binding.txtGender.text = it.sex
-            binding.txtAddress.text ="${it.address?.homeNo} ${it.address?.soi}" +
+            binding.txtAddress.text = "${it.address?.homeNo} ${it.address?.soi}" +
                     " ${it.address?.trok} ${it.address?.moo} ${it.address?.road}" +
                     " ${it.address?.subDistrict} ${it.address?.district} ${it.address?.province} ${it.address?.postalCode}"
-        })
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        mAdapter?.onSaveInstanceState(outState)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        if (savedInstanceState != null && mAdapter != null) {
-            mAdapter.onRestoreInstanceState(savedInstanceState)
         }
     }
+
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//        mAdapter?.onSaveInstanceState(outState)
+//    }
+//
+//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+//        super.onViewStateRestored(savedInstanceState)
+//        if (savedInstanceState != null && mAdapter != null) {
+//            mAdapter.onRestoreInstanceState(savedInstanceState)
+//        }
+//    }
 
     companion object {
         /**

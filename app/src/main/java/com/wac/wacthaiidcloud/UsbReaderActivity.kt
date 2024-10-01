@@ -32,9 +32,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.lifecycleScope
 import androidx.viewpager.widget.ViewPager
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.afollestad.materialdialogs.MaterialDialog
@@ -42,7 +40,6 @@ import com.auth0.android.jwt.JWT
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.tapadoo.alerter.Alerter
 import com.wac.wac_bt_thaiid.view.FragmentViewPager1
 import com.wac.wac_bt_thaiid.view.SharedViewModel
 import com.wac.wacthaiidcloud.Retrofit.API
@@ -88,7 +85,6 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.*
-import java.util.Locale
 import kotlin.experimental.or
 
 class UsbReaderActivity : AppCompatActivity(), View.OnClickListener,
@@ -157,7 +153,7 @@ CompoundButton.OnCheckedChangeListener {
         onPreExecute: () -> Unit,
         doInBackground: suspend (suspend (P) -> Unit) -> R,
         onPostExecute: (R) -> Unit,
-        onProgressUpdate: (P) -> Unit
+        onProgressUpdate: (P) -> Unit,
     ) = launch {
         onPreExecute()
 
@@ -513,7 +509,10 @@ CompoundButton.OnCheckedChangeListener {
 
     private fun toRegisterReceiver() {
         // Register receiver for USB permission
-        mPermissionIntent = PendingIntent.getBroadcast(this, 0, Intent(ACTION_USB_PERMISSION), 0)
+        mPermissionIntent = PendingIntent.getBroadcast(
+            this, 0, Intent(ACTION_USB_PERMISSION),
+            PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT,
+        )
         val filter = IntentFilter()
         filter.addAction(ACTION_USB_PERMISSION)
         filter.addAction(UsbManager.ACTION_USB_DEVICE_DETACHED)
@@ -1819,11 +1818,13 @@ CompoundButton.OnCheckedChangeListener {
                 override fun onNext(userResponse: Upload.Response) {
                     Log.i(TAG, "Request data " + Gson().toJson(userResponse))
                     successDialog(dialog!!, userResponse.message)
-                    Alerter.create(this@UsbReaderActivity)
-                        .setTitle("Success")
-                        .setText("Upload complete")
-                        .setBackgroundColorRes(R.color.Green_LimeGreen) // or setBackgroundColorInt(Color.CYAN)
-                        .show()
+                    val alertDialog = androidx.appcompat.app.AlertDialog.Builder(this@UsbReaderActivity)
+                    alertDialog.apply {
+                        setTitle("Success")
+                        setMessage("Upload complete")
+                        setPositiveButton("okay.") { _: DialogInterface?, _: Int ->
+                        }
+                    }.create().show()
                 }
 
                 override fun onError(e: Throwable) {

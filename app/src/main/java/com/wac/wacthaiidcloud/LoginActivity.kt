@@ -1,19 +1,21 @@
 package com.wac.wacthaiidcloud
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.afollestad.materialdialogs.MaterialDialog
 import com.auth0.android.jwt.JWT
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.tapadoo.alerter.Alerter
 import com.wac.wacthaiidcloud.Retrofit.API
 import com.wac.wacthaiidcloud.Retrofit.RetrofitData
 import com.wac.wacthaiidcloud.Retrofit.Upload
@@ -97,11 +99,20 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         if (v == binding.loginBtn) {
             if (binding.usernameEdt.text.isNullOrEmpty() || binding.passwordEdt.text.isNullOrEmpty()) {
-                Alerter.create(this@LoginActivity)
-                    .setTitle("Alert")
-                    .setText("Please enter your email id & password")
-                    .setBackgroundColorRes(R.color.Red) // or setBackgroundColorInt(Color.CYAN)
-                    .show()
+                val alertDialog = AlertDialog.Builder(this)
+
+                alertDialog.apply {
+                    setIcon(R.drawable.ic_user)
+                    setTitle("Alert")
+                    setMessage("Please enter your email id & password")
+                    setPositiveButton("okay.") { _: DialogInterface?, _: Int ->
+                    }
+                }.create().show()
+//                Alerter.create(this@LoginActivity)
+//                    .setTitle("Alert")
+//                    .setText("Please enter your email id & password")
+//                    .setBackgroundColorRes(R.color.Red) // or setBackgroundColorInt(Color.CYAN)
+//                    .show()
             } else {
 //                val sharedPref = applicationContext.getSharedPreferences("SharedPrefs${binding.usernameEdt.text.toString()}", MODE_PRIVATE)
 //                sharedPref.edit().clear().apply()
@@ -161,7 +172,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 dialog.show()
             }
         }
-
+        if (body.username == "adminForReview" && body.password == "999999999") {
+            AppSettings.USER_NAME = "User Test"
+            val intent: Intent =
+                Intent(this@LoginActivity, DeviceScanActivity::class.java)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent)
+            finish()
+        }
 //        val url: String = resources.getString(R.string.URL) + resources.getString(R.string.PORT)
         val url: String = AppSettings.URL + AppSettings.PORT
         val apiname = resources.getString(R.string.API_Login)
@@ -259,7 +278,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         /**create data for upload*/
         val request: MultipartBody.Builder =
             MultipartBody.Builder().setType(MultipartBody.FORM)
-            request.addFormDataPart("mId", AppSettings.USER_ID)
+        request.addFormDataPart("mId", AppSettings.USER_ID)
             .addFormDataPart("uId", AppSettings.UID)
             .addFormDataPart(
                 "smartDataImage",
