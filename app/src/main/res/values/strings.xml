@@ -3,10 +3,10 @@
 
 <!--    <string name="URL">http://10.0.0.205:</string>-->
 <!--    <string name="PORT">4005/</string>-->
-    <string name="URL">https://api.smartcard.wacappcloud.com/</string>
-    <string name="PORT" />
-<!--    <string name="URL">http://Dipchip.utrade.co.th:</string>-->
-<!--    <string name="PORT">4004/</string>-->
+<!--    <string name="URL">https://api.smartcard.wacappcloud.com/</string>-->
+<!--    <string name="PORT" />-->
+    <string name="URL">http://Dipchip.utrade.co.th:</string>
+    <string name="PORT">4004/</string>
     <string name="API_Login">login</string>
     <string name="API_Token">token</string>
     <string name="API_CardData">smartData</string>

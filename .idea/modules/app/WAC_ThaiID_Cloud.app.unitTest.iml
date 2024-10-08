@@ -15,9 +15,6 @@
           <stringArguments>
             <stringArg name="classpath">
               <args>
-                <arg>$MODULE_DIR$/../../../app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar/release/R.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/abf14b6f45d3503718799cea64dfe4e5/transformed/jetified-SmartCardLib.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/790fdf35a7c5219ddd00bacdbfc2b6b4/transformed/jetified-mpaylib_v1.7.4.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/1d87f9c2033046383761d6d90b94000d/transformed/jetified-viewbinding-8.1.4-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b371e4515fad18e693b86c18b8c16899/transformed/jetified-lifecycle-viewmodel-ktx-2.2.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/a21f3c30e44775f762476686de60f704/transformed/jetified-lifecycle-runtime-ktx-2.2.0-api.jar</arg>
