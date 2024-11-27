@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WAC_ThaiID_Cloud.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WAC_ThaiID_Cloud.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WAC_ThaiID_Cloud.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WAC_ThaiID_Cloud.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WAC_ThaiID_Cloud.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WAC_ThaiID_Cloud.app.unitTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/app.WAC_ThaiID_Cloud.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/app.WAC_ThaiID_Cloud.app.androidTest.iml" />
     </modules>
   </component>
 </project>

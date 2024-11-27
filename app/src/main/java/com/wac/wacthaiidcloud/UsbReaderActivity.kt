@@ -1271,7 +1271,9 @@ CompoundButton.OnCheckedChangeListener {
         val newStrExpire = exp.substring(0, 6) + christ.toString().substring(2,4)
 
         val expireDateTime = LocalDate.parse(newStrExpire, DateTimeFormatter.ofLocalizedDate(
-            FormatStyle.SHORT))
+            FormatStyle.SHORT
+            ).withLocale(Locale("th"))
+        )
         val currentDate = LocalDate.now()
         if (currentDate > expireDateTime) {
             dialog!!.cancel()

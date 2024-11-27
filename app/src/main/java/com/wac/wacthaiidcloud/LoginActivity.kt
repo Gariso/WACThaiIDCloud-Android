@@ -119,8 +119,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 val deviceId: String = Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID)
                 println("device_id: $deviceId")
                 val body = RetrofitData.Login.PostBody()
-                body.username = binding.usernameEdt.text.toString()
-                body.password = binding.passwordEdt.text.toString()
+                body.username = (binding.usernameEdt.text ?: "").trim().toString()
+                body.password = (binding.passwordEdt.text ?: "").trim().toString()
                 body.deviceId = deviceId
                 login(body)
             }

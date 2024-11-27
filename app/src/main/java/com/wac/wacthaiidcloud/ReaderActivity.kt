@@ -80,6 +80,7 @@ import java.nio.charset.Charset
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatter.*
 import java.time.format.FormatStyle
 import java.util.*
 import kotlin.experimental.or
@@ -214,7 +215,7 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reader)
-        sharedViewModel = run { ViewModelProviders.of(this)[SharedViewModel::class.java]}
+        sharedViewModel = run { ViewModelProviders.of(this)[SharedViewModel::class.java] }
         val intent = intent
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME)
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS)
@@ -453,15 +454,18 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                 connectReader()
                 return true
             }
+
             R.id.menu_connecting, R.id.menu_disconnect -> {
                 /* Disconnect Bluetooth reader */Log.v(TAG, "Start to disconnect!!!")
                 disconnectReader()
                 return true
             }
+
             android.R.id.home -> {
                 onBackPressed()
                 return true
             }
+
             R.id.menu_about -> {
                 val manager = this@ReaderActivity.packageManager
                 val info = manager.getPackageInfo(
@@ -485,6 +489,7 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                 }
                 return true
             }
+
             R.id.menu_logout -> {
                 val intent: Intent =
                     Intent(this@ReaderActivity, LoginActivity::class.java)
@@ -493,6 +498,7 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                 startActivity(intent)
                 finish()
             }
+
             else -> {
             }
         }
@@ -690,7 +696,7 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                Return Message : $returnMessage"""
         )
 
-        if(returnMessage == "Data error" && returnCode == 36){
+        if (returnMessage == "Data error" && returnCode == 36) {
             dialog!!.cancel()
             read_btn!!.text = "Read"
             read_btn!!.isEnabled = true
@@ -818,7 +824,8 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                     rAPUD == "610A" || rAPUD == "610D" || rAPUD == "6164" || rAPUD == "6101" || rAPUD == "6108" ||
                     rAPUD == "6114" || rAPUD == "6112" || rAPUD == "6102" || rAPUD == "6104" || rAPUD == "610E" ||
                     rAPUD == "61FF"
-                ) {} else {
+                ) {
+                } else {
                     var str: String? = null
                     if (countdata == 1) {
                         val chip_card = StringBuilder()
@@ -940,7 +947,8 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                             println("strpicture: $strpicture")
                             byteRawHex = hexStringToByteArray(strpicture)
                             val imgBase64String = Base64.encodeToString(byteRawHex, Base64.NO_WRAP)
-                            val bitmapCard = BitmapFactory.decodeByteArray(byteRawHex, 0, byteRawHex!!.size)
+                            val bitmapCard =
+                                BitmapFactory.decodeByteArray(byteRawHex, 0, byteRawHex!!.size)
 
                             cardPhoto!!.statusCode = "1"
                             cardPhoto!!.photo = imgBase64String
@@ -1022,7 +1030,10 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
 
 //                            val date = Date()
 //                            val dipChipDateTime = date.dateToString("yyyy-MM-dd hh:mm:ss")
-                            val dipChipDateTime = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(Date())
+                            val dipChipDateTime =
+                                SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(
+                                    Date()
+                                )
                             println("dipChipDateTime: $dipChipDateTime")
                             nativeCardInfo!!.dipChipDateTime = dipChipDateTime
 
@@ -1077,15 +1088,20 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                                 .addFormDataPart("cardCountry", nativeCardInfo!!.cardCountry)
 
                                 .addFormDataPart("channel", "dipchip via MOBILE")
-                                .addFormDataPart("dipChipDateTime", nativeCardInfo!!.dipChipDateTime)
+                                .addFormDataPart(
+                                    "dipChipDateTime",
+                                    nativeCardInfo!!.dipChipDateTime
+                                )
                                 .addFormDataPart("ipaddress", getIpv4HostAddress())
 
                             val exp = nativeCardInfo!!.cardExpiryDate
                             val christ = exp.substring(6, 10).toInt() - 543
-                            val newStrExpire = exp.substring(0, 6) + christ.toString().substring(2,4)
-
-                            val expireDateTime = LocalDate.parse(newStrExpire, DateTimeFormatter.ofLocalizedDate(
-                                FormatStyle.SHORT))
+                            val newStrExpire =
+                                exp.substring(0, 6) + christ.toString().substring(2, 4)
+                            val expireDateTime = LocalDate.parse(
+                                newStrExpire,
+                                ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("th"))
+                            )
                             val currentDate = LocalDate.now()
                             if (currentDate > expireDateTime) {
                                 dialog!!.cancel()
@@ -1187,71 +1203,83 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
         val dialog = retrofitDialog(this)
         dialog?.show()
 
-        var client = OkHttpClient()
-        val builder = OkHttpClient.Builder()
-        client = builder.build()
-        val url: String = AppSettings.URL + AppSettings.PORT
-        val retrofit: Retrofit = Retrofit.Builder()
-            .baseUrl(url)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
+        try {
+            var client = OkHttpClient()
+            val builder = OkHttpClient.Builder()
+            client = builder.build()
+            val url: String = AppSettings.URL + AppSettings.PORT
+            val retrofit: Retrofit = Retrofit.Builder()
+                .baseUrl(url)
+                .client(client)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build()
 
-        retrofit.create<API>(API::class.java)
-            .postUpload(
-                AppSettings.ACCESS_TOKEN,
-                getString(R.string.API_CardData),
-                data
-            )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<Upload.Response> {
-                override fun onComplete() {
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                }
-
-                override fun onNext(userResponse: Upload.Response) {
-                    Log.i(TAG, "Request data " + Gson().toJson(userResponse))
-                    successDialog(dialog!!, userResponse.message)
-                    val alertDialog = AlertDialog.Builder(this@ReaderActivity)
-                    alertDialog.apply {
-                        setTitle("Success")
-                        setMessage("Upload complete")
-                        setPositiveButton("okay.") { _: DialogInterface?, _: Int ->
-                        }
-                    }.create().show()
-                }
-
-                override fun onError(e: Throwable) {
-                    if (e is HttpException) {
-                        Log.d(TAG, "onError:HttpException ${e.localizedMessage}")
-                        try {
-                            val jObjError = JSONObject(e.response()!!.errorBody()?.string())
-                            Log.d(TAG, jObjError.getString("message"))
-                            if (jObjError.getString("message") == "Unauthorized") {
-                                token(AppSettings.REFRESH_TOKEN, data)
-                            } else if ((jObjError.getString("message")) == "No address associated with hostname") {
-                                errorDialog(dialog!!, "เกิดข้อผิดพลาด เพื่อให้ใช้งานต่อได้ กรุณา login ใหม่เพื่อเปิดใช้โหมด OffLine ")
-                            } else {
-                                PublicFunction().errorDialogSetTitle(dialog!!, (jObjError.getString("message"))).show()
-                            }
-                        } catch (e: Exception) {
-                            Log.d(TAG, e.toString())
-                            PublicFunction().errorDialogSetTitle(dialog!!, e.localizedMessage).show()
-                        }
-                    } else {
-                        Log.d(TAG, "onError: $e")
-                        PublicFunction().errorDialogSetTitle(dialog!!, e.localizedMessage).show()
+            retrofit.create<API>(API::class.java)
+                .postUpload(
+                    AppSettings.ACCESS_TOKEN,
+                    getString(R.string.API_CardData),
+                    data
+                )
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<Upload.Response> {
+                    override fun onComplete() {
                     }
-                    e.printStackTrace()
-                }
-            })
+
+                    override fun onSubscribe(d: Disposable) {
+                    }
+
+                    override fun onNext(userResponse: Upload.Response) {
+                        Log.i(TAG, "Request data " + Gson().toJson(userResponse))
+                        successDialog(dialog!!, userResponse.message)
+                        val alertDialog = AlertDialog.Builder(this@ReaderActivity)
+                        alertDialog.apply {
+                            setTitle("Success")
+                            setMessage("Upload complete")
+                            setPositiveButton("okay.") { _: DialogInterface?, _: Int ->
+                            }
+                        }.create().show()
+                    }
+
+                    override fun onError(e: Throwable) {
+                        if (e is HttpException) {
+                            Log.d(TAG, "onError:HttpException ${e.localizedMessage}")
+                            try {
+                                val jObjError = JSONObject(e.response()!!.errorBody()?.string())
+                                Log.d(TAG, jObjError.getString("message"))
+                                if (jObjError.getString("message") == "Unauthorized") {
+                                    token(AppSettings.REFRESH_TOKEN, data, dialog!!)
+                                } else if ((jObjError.getString("message")) == "No address associated with hostname") {
+                                    errorDialog(
+                                        dialog!!,
+                                        "เกิดข้อผิดพลาด เพื่อให้ใช้งานต่อได้ กรุณา login ใหม่เพื่อเปิดใช้โหมด OffLine "
+                                    )
+                                } else {
+                                    PublicFunction().errorDialogSetTitle(
+                                        dialog!!,
+                                        (jObjError.getString("message"))
+                                    ).show()
+                                }
+                            } catch (e: Exception) {
+                                Log.d(TAG, e.toString())
+                                PublicFunction().errorDialogSetTitle(dialog!!, e.localizedMessage)
+                                    .show()
+                            }
+                        } else {
+                            Log.d(TAG, "onError: $e")
+                            PublicFunction().errorDialogSetTitle(dialog!!, e.localizedMessage)
+                                .show()
+                        }
+                        e.printStackTrace()
+                    }
+                })
+        } catch (e: Exception) {
+            PublicFunction().errorDialogSetTitle(dialog!!, e.localizedMessage).show()
+        }
     }
 
-    private fun token(token: String, data: RequestBody) {
+    private fun token(token: String, data: RequestBody, dialog: SweetAlertDialog) {
 
         val url: String = AppSettings.URL + AppSettings.PORT
         val apiname = resources.getString(R.string.API_Token)
@@ -1297,12 +1325,9 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                 }
 
                 override fun onError(e: Throwable) {
-                    val intent: Intent =
-                        Intent(this@ReaderActivity, LoginActivity::class.java)
-                            .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                            .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    finish()
+                    errorTokenDialog(
+                        dialog,
+                        "เกิดข้อผิดพลาด Session หมดอายุ เพื่อให้ใช้งานต่อได้ กรุณา login ใหม่")
                 }
             })
     }
@@ -1612,7 +1637,11 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                                         )
                                         Log.d("imgggg", imgBase64String)
                                         val bitmapCard =
-                                            BitmapFactory.decodeByteArray( byteRawHex,0,byteRawHex!!.size)
+                                            BitmapFactory.decodeByteArray(
+                                                byteRawHex,
+                                                0,
+                                                byteRawHex!!.size
+                                            )
 
                                         cardPhoto!!.statusCode = "1"
                                         cardPhoto!!.photo = imgBase64String
@@ -1623,7 +1652,11 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                                         val cardfile = File(this.cacheDir, "image")
                                         cardfile.createNewFile()
                                         val bos = ByteArrayOutputStream()
-                                        bitmapCard.compress( CompressFormat.PNG, 0 /*ignored for PNG*/,bos )
+                                        bitmapCard.compress(
+                                            CompressFormat.PNG,
+                                            0 /*ignored for PNG*/,
+                                            bos
+                                        )
                                         val bitmapdata = bos.toByteArray()
                                         val fos = FileOutputStream(cardfile)
                                         fos.write(bitmapdata)
@@ -1694,7 +1727,10 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
 
 //                                        val date = Date()
 //                                        val dipChipDateTime = date.dateToString("yyyy-MM- dd hh:mm:ss")
-                                        val dipChipDateTime = SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault()).format(Date())
+                                        val dipChipDateTime = SimpleDateFormat(
+                                            "yyyy-MM-dd hh:mm:ss",
+                                            Locale.getDefault()
+                                        ).format(Date())
                                         println("dipChipDateTime: $dipChipDateTime")
                                         nativeCardInfo!!.dipChipDateTime = dipChipDateTime
 
@@ -1808,15 +1844,22 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                                                 nativeCardInfo!!.cardCountry
                                             )
                                             .addFormDataPart("channel", "dipchip via MOBILE")
-                                            .addFormDataPart("dipChipDateTime", nativeCardInfo!!.dipChipDateTime)
+                                            .addFormDataPart(
+                                                "dipChipDateTime",
+                                                nativeCardInfo!!.dipChipDateTime
+                                            )
                                             .addFormDataPart("ipaddress", getIpv4HostAddress())
 
                                         val exp = nativeCardInfo!!.cardExpiryDate
                                         val christ = exp.substring(6, 10).toInt() - 543
-                                        val newStrExpire = exp.substring(0, 6) + christ.toString().substring(2,4)
-
-                                        val expireDateTime = LocalDate.parse(newStrExpire, DateTimeFormatter.ofLocalizedDate(
-                                            FormatStyle.SHORT))
+                                        val newStrExpire =
+                                            exp.substring(0, 6) + christ.toString().substring(2, 4)
+                                        println("newStrExpire: $newStrExpire")
+                                        val expireDateTime = LocalDate.parse(
+                                            newStrExpire, ofLocalizedDate(
+                                                FormatStyle.SHORT
+                                            ).withLocale(Locale("th"))
+                                        )
                                         val currentDate = LocalDate.now()
                                         if (currentDate > expireDateTime) {
                                             dialog!!.cancel()
@@ -1830,7 +1873,8 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                                                         val data = getDataFromSharedPreferences()
                                                         data?.let { println(" data ref: ${it.size}") }
                                                     } else {
-                                                        val requestBody: RequestBody = builder.build()
+                                                        val requestBody: RequestBody =
+                                                            builder.build()
                                                         uploadReader(requestBody)
                                                     }
                                                 })
@@ -1886,16 +1930,22 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                     when (infoId) {
                         BluetoothReader.DEVICE_INFO_SYSTEM_ID -> {
                         }
+
                         BluetoothReader.DEVICE_INFO_MODEL_NUMBER_STRING -> {
                         }
+
                         BluetoothReader.DEVICE_INFO_SERIAL_NUMBER_STRING -> {
                         }
+
                         BluetoothReader.DEVICE_INFO_FIRMWARE_REVISION_STRING -> {
                         }
+
                         BluetoothReader.DEVICE_INFO_HARDWARE_REVISION_STRING -> {
                         }
+
                         BluetoothReader.DEVICE_INFO_MANUFACTURER_NAME_STRING -> {
                         }
+
                         else -> {
                         }
                     }
@@ -1981,7 +2031,10 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
     private fun getDataFromSharedPreferences(): List<NativeCardInfo?>? {
         val gson = Gson()
         var productFromShared: List<NativeCardInfo?>? = ArrayList()
-        val sharedPref = applicationContext.getSharedPreferences("SharedPrefs${AppSettings.ID_USER_NAME}", MODE_PRIVATE)
+        val sharedPref = applicationContext.getSharedPreferences(
+            "SharedPrefs${AppSettings.ID_USER_NAME}",
+            MODE_PRIVATE
+        )
         val jsonPreferences = sharedPref.getString("NativeCardInfo", "")
         val type = object : TypeToken<List<NativeCardInfo?>?>() {}.type
         productFromShared = gson.fromJson<List<NativeCardInfo?>>(jsonPreferences, type)
@@ -1992,14 +2045,17 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
         val dialog = retrofitDialog(this)
         dialog?.show()
         val gson = Gson()
-        val sharedPref = applicationContext.getSharedPreferences("SharedPrefs${AppSettings.ID_USER_NAME}", MODE_PRIVATE)
+        val sharedPref = applicationContext.getSharedPreferences(
+            "SharedPrefs${AppSettings.ID_USER_NAME}",
+            MODE_PRIVATE
+        )
         val jsonSaved = sharedPref.getString("NativeCardInfo", "")
         val jsonNewproductToAdd = gson.toJson(productToAdd)
         var jsonArrayProduct = JSONArray()
         try {
             if (jsonSaved!!.length != 0) {
                 jsonArrayProduct = JSONArray(jsonSaved)
-            } 
+            }
             jsonArrayProduct.put(JSONObject(jsonNewproductToAdd))
         } catch (e: JSONException) {
             e.printStackTrace()
@@ -2079,7 +2135,7 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
         info: String,
         pan: String,
         cardholderName: String,
-        expDate: String
+        expDate: String,
     ) {
         // TODO Auto-generated method stub
     }
@@ -2242,6 +2298,27 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                 )
             )
             .setConfirmClickListener(null)
+            .changeAlertType(SweetAlertDialog.ERROR_TYPE)
+        return dialog
+    }
+
+    fun errorTokenDialog(dialog: SweetAlertDialog, message: String?): SweetAlertDialog {
+        dialog.setTitleText(message)
+            .setConfirmText("ตกลง")
+            .setConfirmButtonBackgroundColor(
+                ContextCompat.getColor(
+                    dialog.context,
+                    R.color.Red_Crimson
+                )
+            )
+            .setConfirmClickListener { sweetAlertDialog -> // เมื่อผู้ใช้คลิกปุ่ม "Yes, delete it!"
+                val intent: Intent =
+                    Intent(this@ReaderActivity, LoginActivity::class.java)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(intent)
+                finish()
+            }
             .changeAlertType(SweetAlertDialog.ERROR_TYPE)
         return dialog
     }
@@ -2690,7 +2767,8 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
     }
 
     private fun checkForInternet(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val network = connectivityManager.activeNetwork ?: return false
             val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
