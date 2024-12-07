@@ -137,62 +137,71 @@ class DeviceScanActivity : com.wac.wacthaiidcloud.utils.ListActivity() {
     }
 
 
-    override fun onResume() {
-        super.onResume()
-
-        /*
-         * Ensures Bluetooth is enabled on the device. If Bluetooth is not
-         * currently enabled, fire an intent to display a dialog asking the user
-         * to grant permission to enable it.
-         */if (!mBluetoothAdapter!!.isEnabled) {
-            val enableBtIntent = Intent(
-                BluetoothAdapter.ACTION_REQUEST_ENABLE
-            )
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
-        } else {
-            /* Request access coarse location permission. */
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED
-                ) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                        ActivityCompat.requestPermissions(
-                            this, arrayOf(
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_BACKGROUND_LOCATION,
-                                Manifest.permission.BLUETOOTH_ADMIN,
-                                Manifest.permission.BLUETOOTH,
-                            ),
-                            REQUEST_ACCESS_COARSE_LOCATION
-                        )
-                    } else {
-                        ActivityCompat.requestPermissions(
-                            this, arrayOf(
-                                Manifest.permission.ACCESS_COARSE_LOCATION,
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.BLUETOOTH_ADMIN,
-                                Manifest.permission.BLUETOOTH,
-                            ),
-                            REQUEST_ACCESS_COARSE_LOCATION
-                        )
-                    }
-                }
-            } else {
-                if (ContextCompat.checkSelfPermission(
-                        this,
-                        Manifest.permission.BLUETOOTH_SCAN
-                    )
-                    != PackageManager.PERMISSION_GRANTED
-                ) {
+    private fun requestPermissionBluetooth() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                     ActivityCompat.requestPermissions(
                         this, arrayOf(
-                            Manifest.permission.BLUETOOTH_CONNECT,
-                            Manifest.permission.BLUETOOTH_SCAN
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_BACKGROUND_LOCATION,
+                            Manifest.permission.BLUETOOTH_ADMIN,
+                            Manifest.permission.BLUETOOTH,
                         ),
-                        BLUETOOTH_PERMISSION_REQUEST_CODE
+                        REQUEST_ACCESS_COARSE_LOCATION
+                    )
+                } else {
+                    ActivityCompat.requestPermissions(
+                        this, arrayOf(
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.BLUETOOTH_ADMIN,
+                            Manifest.permission.BLUETOOTH,
+                        ),
+                        REQUEST_ACCESS_COARSE_LOCATION
                     )
                 }
             }
+        } else {
+            if (ContextCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.BLUETOOTH_SCAN
+                )
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                ActivityCompat.requestPermissions(
+                    this, arrayOf(
+                        Manifest.permission.BLUETOOTH_CONNECT,
+                        Manifest.permission.BLUETOOTH_SCAN
+                    ),
+                    BLUETOOTH_PERMISSION_REQUEST_CODE
+                )
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (!mBluetoothAdapter!!.isEnabled) {
+            requestPermissionBluetooth()
+            val enableBtIntent = Intent(
+                BluetoothAdapter.ACTION_REQUEST_ENABLE
+            )
+            if (ActivityCompat.checkSelfPermission(
+                    this,
+                    Manifest.permission.BLUETOOTH_CONNECT
+                ) != PackageManager.PERMISSION_GRANTED
+            ) {
+                return
+            } else {
+                startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT)
+            }
+        } else {
+            /* Request access coarse location permission. */
+            requestPermissionBluetooth()
         }
 
         /* Initializes list view adapter. */
@@ -215,7 +224,7 @@ class DeviceScanActivity : com.wac.wacthaiidcloud.utils.ListActivity() {
     override fun onPause() {
         super.onPause()
         scanLeDevice(false)
-        mLeDeviceListAdapter!!.clear()
+        mLeDeviceListAdapter?.clear()
     }
 
     override fun onListItemClick(l: ListView, v: View, position: Int, id: Long) {

@@ -10,8 +10,8 @@ android {
         applicationId "com.wac.wacthaiidcloud"
         minSdkVersion 26
         targetSdkVersion 34
-        versionCode 20
-        versionName "1.4"
+        versionCode 23
+        versionName "1.5"
         multiDexEnabled true
 //        useLibrary 'org.apache.http.conn.util'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"

@@ -2,6 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/GitHub.WACThaiIDCloud-Android.app.WAC_ThaiID_Cloud.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/GitHub.WACThaiIDCloud-Android.app.WAC_ThaiID_Cloud.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WACThaiIDCloud-Android.app.WAC_ThaiID_Cloud.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WACThaiIDCloud-Android.app.WAC_ThaiID_Cloud.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/WAC_ThaiID_Cloud.iml" filepath="$PROJECT_DIR$/.idea/modules/WAC_ThaiID_Cloud.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/acsbt/WAC_ThaiID_Cloud.acsbt.iml" filepath="$PROJECT_DIR$/.idea/modules/acsbt/WAC_ThaiID_Cloud.acsbt.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/WAC_ThaiID_Cloud.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/WAC_ThaiID_Cloud.app.iml" />

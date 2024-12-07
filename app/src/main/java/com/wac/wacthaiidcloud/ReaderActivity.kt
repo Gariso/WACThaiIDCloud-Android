@@ -1095,34 +1095,46 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                                 .addFormDataPart("ipaddress", getIpv4HostAddress())
 
                             val exp = nativeCardInfo!!.cardExpiryDate
-                            val christ = exp.substring(6, 10).toInt() - 543
-                            val newStrExpire =
-                                exp.substring(0, 6) + christ.toString().substring(2, 4)
-                            val expireDateTime = LocalDate.parse(
-                                newStrExpire,
-                                ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("th"))
-                            )
-                            val currentDate = LocalDate.now()
-                            if (currentDate > expireDateTime) {
-                                dialog!!.cancel()
-                                MaterialDialog(this@ReaderActivity).show {
-                                    title(text = "คำเตือน")
-                                    message(text = "บัตรหมดอายุ")
-                                    negativeButton(text = "ยกเลิก")
-                                    positiveButton(text = "ดำเนินการต่อ", click = {
-                                        if (AppSettings.IS_OFFLINE) {
-                                            addInJSONArray(nativeCardInfo!!)
-                                            val data = getDataFromSharedPreferences()
-                                            data?.let { println(" data ref: ${it.size}") }
-                                        } else {
-                                            val requestBody: RequestBody = builder.build()
-                                            uploadReader(requestBody)
-                                        }
-                                    })
+                            println("exp: $exp")
+                            if (exp != "99/99/9999") {
+                                val christ = exp.substring(6, 10).toInt() - 543
+                                val newStrExpire =
+                                    exp.substring(0, 6) + christ.toString().substring(2, 4)
+                                val expireDateTime = LocalDate.parse(
+                                    newStrExpire,
+                                    ofLocalizedDate(FormatStyle.SHORT).withLocale(Locale("th"))
+                                )
+                                val currentDate = LocalDate.now()
+                                if (currentDate > expireDateTime) {
+                                    dialog!!.cancel()
+                                    MaterialDialog(this@ReaderActivity).show {
+                                        title(text = "คำเตือน")
+                                        message(text = "บัตรหมดอายุ")
+                                        negativeButton(text = "ยกเลิก")
+                                        positiveButton(text = "ดำเนินการต่อ", click = {
+                                            if (AppSettings.IS_OFFLINE) {
+                                                addInJSONArray(nativeCardInfo!!)
+                                                val data = getDataFromSharedPreferences()
+                                                data?.let { println(" data ref: ${it.size}") }
+                                            } else {
+                                                val requestBody: RequestBody = builder.build()
+                                                uploadReader(requestBody)
+                                            }
+                                        })
+                                    }
+                                } else {
+                                    dialog!!.cancel()
+                                    if (AppSettings.IS_OFFLINE) {
+                                        addInJSONArray(nativeCardInfo!!)
+                                        val data = getDataFromSharedPreferences()
+                                        data?.let { println(" data ref: ${it.size}") }
+                                    } else {
+                                        val requestBody: RequestBody = builder.build()
+                                        uploadReader(requestBody)
+                                    }
                                 }
                             } else {
                                 dialog!!.cancel()
-                                println(nativeCardInfo!!.strPicture)
                                 if (AppSettings.IS_OFFLINE) {
                                     addInJSONArray(nativeCardInfo!!)
                                     val data = getDataFromSharedPreferences()
