@@ -1513,9 +1513,14 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                                     e.printStackTrace()
                                 }
                                 if (countdata == 2) {
-                                    nativeCardInfo!!.laserId =
-                                        str.toString().replace("\b", "")
-                                            .trimStart().trimEnd()
+//                                    str = str!!.replace("[|?*<\":>+\\[\\]/\b' ]".toRegex(), "")
+                                    val laserId = str.toString().replace("\b", "")
+                                        .replace("\\s".toRegex(), "")
+                                        .replace("[^A-Za-z0-9]".toRegex(), "")
+                                        .replace(" ", "")
+                                    nativeCardInfo!!.laserId = laserId
+                                    println("laserId3: ${nativeCardInfo!!.laserId}")
+                                    println("laserId4: $laserId")
                                 } else if (countdata == 3) {
                                     nativeCardInfo!!.cardNumber =
                                         str.toString().trim()
@@ -1745,7 +1750,7 @@ class ReaderActivity : AppCompatActivity(), BluetoothListener, CommandListener,
                                         ).format(Date())
                                         println("dipChipDateTime: $dipChipDateTime")
                                         nativeCardInfo!!.dipChipDateTime = dipChipDateTime
-
+                                        println("dipChipDateTime: ${nativeCardInfo!!.laserId}")
                                         val builder: MultipartBody.Builder =
                                             MultipartBody.Builder().setType(MultipartBody.FORM)
                                         builder.addFormDataPart("mId", AppSettings.USER_ID)
